@@ -21,19 +21,19 @@ all_desktop: embedding chunkenizer	# desktop exec_desktop
 
 # OBJS_DESKTOP = main.o funcao1.o
 # OBJS_ANDROID = main_android.o funcao1_android.o
-
-
-# Regras para compilar os arquivos objeto
-./venv:
-	$(PY_DESKTOP) -m venv venv
-
 VENV_PY = ./venv/bin/python3
 
+# Regras para compilar os arquivos objet
 embedding: $(EMBEDDING_REQ) chunkenizer ./venv
 	$(VENV_PY) -m pip install -r $(EMBEDDING_REQ)
 
 chunkenizer: $(CHUNKENIZER_REQ) ./venv
 	$(VENV_PY) -m pip install -r $(CHUNKENIZER_REQ)
+
+## Necessário instalar a versão python3.10 do venv localmente antes
+./venv:
+	$(PY_DESKTOP) -m venv venv
+	$(VENV_PY) -m ensurepip --upgrade
 
 # main.o: main.cpp
 # 	$(CC_DESKTOP) $(CFLAGS) -c main.cpp -o main.o
@@ -67,7 +67,7 @@ chunkenizer: $(CHUNKENIZER_REQ) ./venv
 # 	adb shell $(DIR_ANDROID_WORKSPACE)/reggae $(DIR_ANDROID_WORKSPACE)/$(FILE_VECTOR_STORE)
 
 clean:
-	rm -rf __pycache__
+	rm -rf ./chunkenizer/__pycache__
 	rm -rf ./venv
 
 # 	rm -f $(OBJS_DESKTOP) $(OBJS_ANDROID) /build/reggae 

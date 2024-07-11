@@ -1,7 +1,12 @@
+import os
+import sys
+
+sys.path.append(os.path.abspath("chunkenizer/"))
+
 import argparse
 from mediapipe.tasks import python
 from mediapipe.tasks.python import text
-from chunkenizer.chunkenizer import Chunk
+from chunkenizer import Chunk
 import pandas as pd
 
 def Embed(model, string=None, file=None):
